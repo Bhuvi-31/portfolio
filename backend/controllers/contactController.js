@@ -13,12 +13,15 @@ const handleContactForm = async (req, res, next) => {
   const ipAddress = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1';
   const timestamp = new Date().toLocaleString();
 
-  // Step 11: Log Incoming Request
+  // Requirement 13: Log Incoming Request
   logger.info(`Incoming Request: ${JSON.stringify({ name, email, subject, message, ipAddress })}`);
   console.log('Incoming Request:', { name, email, subject, message, ipAddress });
 
   try {
-    // Step 8 & 4: 1. Save data to Firestore collection 'contacts'
+    // Requirement 13: Log Saving Firestore...
+    logger.info('Saving Firestore...');
+    console.log('Saving Firestore...');
+
     const savedContact = await saveContact({
       name,
       email,
@@ -27,7 +30,14 @@ const handleContactForm = async (req, res, next) => {
       ipAddress,
     });
 
-    // Step 8: 2. Only after successful save, send email notification
+    // Requirement 13: Log Firestore Saved
+    logger.info(`Firestore Saved: ${savedContact.id}`);
+    console.log('Firestore Saved:', savedContact.id);
+
+    // Requirement 13: Log Sending Email...
+    logger.info('Sending Email...');
+    console.log('Sending Email...');
+
     const emailResult = await sendContactNotification({
       name,
       email,
@@ -37,33 +47,38 @@ const handleContactForm = async (req, res, next) => {
       ipAddress,
     });
 
-    if (!emailResult.success) {
-      logger.warn(`Email Dispatch Notice: ${emailResult.error}`);
+    if (emailResult.success) {
+      // Requirement 13: Log Email Sent
+      logger.info(`Email Sent: ${emailResult.messageId || 'Success'}`);
+      console.log('Email Sent:', emailResult.messageId || 'Success');
+    } else {
+      logger.warn(`Email Failed: ${emailResult.error}`);
+      console.log('Email Failed:', emailResult.error);
     }
 
-    // Step 9: Return API response
+    // Requirement 9 & 13: Log API Success & Return Response
     const successResponse = {
       success: true,
       message: 'Message Sent Successfully',
     };
 
-    logger.info(`API Response: ${JSON.stringify(successResponse)}`);
-    console.log('API Response:', successResponse);
+    logger.info(`API Success: ${JSON.stringify(successResponse)}`);
+    console.log('API Success:', successResponse);
 
     return res.status(200).json(successResponse);
   } catch (error) {
     const errorMsg = error.message || 'Failed to submit contact message';
 
     logger.error(`Contact Form Error: ${errorMsg}`);
-    console.log('Firestore Save Failed:', errorMsg);
+    console.log('API Error:', errorMsg);
 
     const failureResponse = {
       success: false,
       error: errorMsg,
     };
 
-    logger.info(`API Response: ${JSON.stringify(failureResponse)}`);
-    console.log('API Response:', failureResponse);
+    logger.info(`API Response Error: ${JSON.stringify(failureResponse)}`);
+    console.log('API Response Error:', failureResponse);
 
     return res.status(400).json(failureResponse);
   }

@@ -3064,9 +3064,19 @@
             message: messageInput.value.trim()
           };
 
-          const API_ENDPOINT = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '5000'
-            ? 'http://localhost:5000/api/contact'
-            : '/api/contact';
+          const getApiEndpoint = () => {
+            let baseUrl = '';
+            if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) {
+              baseUrl = import.meta.env.VITE_API_URL;
+            } else if (window.VITE_API_URL) {
+              baseUrl = window.VITE_API_URL;
+            } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+              baseUrl = window.location.port === '5000' ? '' : 'http://localhost:5000';
+            }
+            return baseUrl ? `${baseUrl.replace(/\/$/, '')}/api/contact` : '/api/contact';
+          };
+
+          const API_ENDPOINT = getApiEndpoint();
 
           try {
             const response = await fetch(API_ENDPOINT, {
@@ -3090,14 +3100,18 @@
           } catch (err) {
             console.error('Contact submit error:', err);
             formStatus.style.color = '#ff6060';
-            formStatus.textContent = err.message || 'Failed to connect to backend server';
+            if (err.name === 'TypeError' && err.message.includes('fetch')) {
+              formStatus.textContent = `Backend Server Unreachable (${API_ENDPOINT}). Please ensure Node.js backend is running on port 5000.`;
+            } else {
+              formStatus.textContent = err.message || 'Network error occurred while connecting to API.';
+            }
           } finally {
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
 
             setTimeout(() => {
               formStatus.textContent = '';
-            }, 6000);
+            }, 7000);
           }
         });
       }

@@ -21,24 +21,37 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Security Headers with Helmet
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+);
 
 // CORS Configuration
 const allowedOrigins = [
-  config.frontendUrl,
+  'http://localhost:5173',
   'http://localhost:3000',
   'http://localhost:5000',
+  'http://127.0.0.1:5173',
   'http://127.0.0.1:5500',
-];
+  'http://127.0.0.1:3000',
+  'https://bhuvaneshwari2006.netlify.app',
+  config.frontendUrl,
+].filter(Boolean);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (mobile apps, curl, etc.)
-      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      // Allow requests with no origin (curl, Postman, mobile apps) or allowed origins
+      if (
+        !origin ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.netlify.app') ||
+        process.env.NODE_ENV !== 'production'
+      ) {
         return callback(null, true);
       }
-      return callback(new Error('CORS Policy restriction: Origin not allowed.'));
+      return callback(new Error(`CORS restriction: Origin ${origin} not allowed.`));
     },
     credentials: true,
   })
@@ -51,12 +64,10 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 // Global Rate Limiter
 app.use('/api', apiLimiter);
 
-// Health Check Endpoint
+// Requirement 7: Health Check Endpoint returning { status: "OK" }
 app.get('/health', (req, res) => {
   res.status(200).json({
-    status: 'UP',
-    timestamp: new Date().toISOString(),
-    environment: config.env,
+    status: 'OK',
   });
 });
 
@@ -77,7 +88,7 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 // Start Express Server
-const PORT = config.port;
+const PORT = config.port || 5000;
 app.listen(PORT, () => {
   logger.info(`🚀 Server running in ${config.env} mode on port ${PORT}`);
 });
