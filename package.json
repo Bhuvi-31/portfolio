@@ -1,0 +1,16 @@
+{
+  "name": "bhuvaneshwari-portfolio",
+  "version": "1.0.0",
+  "description": "Bhuvaneshwari S - Portfolio Website & Node.js Backend Service",
+  "scripts": {
+    "start": "npm --prefix backend start",
+    "dev": "npm --prefix backend run dev"
+  },
+  "keywords": [
+    "portfolio",
+    "express",
+    "firebase"
+  ],
+  "author": "Bhuvaneshwari S",
+  "license": "ISC"
+}
