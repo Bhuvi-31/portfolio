@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Bhuvaneshwari S - Portfolio Website & Node.js Backend Service",
   "scripts": {
+    "build": "echo 'Building static site for deployment'",
     "start": "npm --prefix backend start",
     "dev": "npm --prefix backend run dev"
   },

@@ -3072,6 +3072,8 @@
               baseUrl = window.VITE_API_URL;
             } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
               baseUrl = window.location.port === '5000' ? '' : 'http://localhost:5000';
+            } else {
+              baseUrl = window.RENDER_BACKEND_URL || 'https://portfolio-backend-bhuvi.onrender.com';
             }
             return baseUrl ? `${baseUrl.replace(/\/$/, '')}/api/contact` : '/api/contact';
           };
