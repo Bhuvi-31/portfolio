@@ -2275,8 +2275,7 @@
             <div class="skill-icon-box"><i class="fab fa-java"></i></div>
             <h3 class="skill-name">Java</h3>
           </div>
-          <p class="skill-desc">Object-oriented programming, enterprise software development, backend systems, and web
-            application architecture.</p>
+          <p class="skill-desc">Object-Oriented Programming, Collections Framework, Exception Handling, Multithreading, JDBC, REST APIs, Spring Boot Fundamentals and Backend Development.</p>
         </div>
       </div>
     </div>
@@ -2505,18 +2504,60 @@
 
         <!-- Project 4 (MediCall Token) -->
         <div class="project-card rv rv-up d4">
+          <div class="project-card-image" style="width: 100%; height: 160px; border-radius: var(--radius-md); overflow: hidden; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); margin-bottom: 20px; position: relative; display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+              <defs>
+                <linearGradient id="hospGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="var(--accent-pink)" stop-opacity="0.9"/>
+                </linearGradient>
+              </defs>
+              <!-- Grid background lines -->
+              <path d="M0 40H320 M0 80H320 M0 120H320 M80 0V160 M160 0V160 M240 0V160" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+              
+              <!-- Dashboard Window Header -->
+              <rect x="15" y="12" width="290" height="136" rx="8" fill="rgba(30, 41, 59, 0.75)" stroke="var(--border)" stroke-width="1"/>
+              <circle cx="30" cy="25" r="3.5" fill="#ff5f56"/>
+              <circle cx="41" cy="25" r="3.5" fill="#ffbd2e"/>
+              <circle cx="52" cy="25" r="3.5" fill="#27c93f"/>
+              <text x="68" y="28" fill="var(--text-muted)" font-size="9" font-family="sans-serif" font-weight="600">MediCall Hospital CRM • Live Token Queue</text>
+              <line x1="15" y1="36" x2="305" y2="36" stroke="var(--border)" stroke-width="1"/>
+              
+              <!-- Hospital Cross Icon & Live Status -->
+              <rect x="25" y="48" width="26" height="26" rx="6" fill="rgba(99, 102, 241, 0.15)" stroke="var(--accent)" stroke-width="1"/>
+              <path d="M38 54v14M31 61h14" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
+              
+              <text x="60" y="58" fill="var(--text)" font-size="11" font-weight="700" font-family="sans-serif">TOKEN #A-104</text>
+              <text x="60" y="70" fill="var(--accent-pink)" font-size="9" font-weight="600" font-family="sans-serif">Live Patients: 18 • Wait: 4 mins</text>
+              
+              <!-- ECG / Heartbeat pulse animation wave line -->
+              <path d="M25 105 L70 105 L80 90 L90 120 L100 78 L110 112 L120 105 L295 105" stroke="url(#hospGrad)" stroke-width="2.2" fill="none" stroke-linejoin="round" class="pulse-wave-line"/>
+              
+              <!-- Analytics Graph Bars -->
+              <rect x="180" y="50" width="8" height="22" rx="2" fill="var(--accent)" opacity="0.5"/>
+              <rect x="193" y="45" width="8" height="27" rx="2" fill="var(--accent)" opacity="0.8"/>
+              <rect x="206" y="40" width="8" height="32" rx="2" fill="url(#hospGrad)"/>
+              <rect x="219" y="54" width="8" height="18" rx="2" fill="var(--accent-pink)" opacity="0.6"/>
+              <rect x="232" y="44" width="8" height="28" rx="2" fill="var(--accent-pink)" opacity="0.9"/>
+              
+              <!-- QR Scanner radar glowing circle -->
+              <circle cx="275" cy="58" r="14" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3 3" class="spin-ring"/>
+              <circle cx="275" cy="58" r="4" fill="var(--accent-pink)" class="glow-point p1"/>
+            </svg>
+          </div>
           <div class="project-card-header">
             <span class="project-card-year">2026</span>
             <span class="project-card-cat">Web &amp; Mobile App</span>
           </div>
-          <h3 class="project-card-title">MediCall Token – Government Hospital Live Queue &amp; Enterprise Admin CRM
-            System</h3>
+          <h3 class="project-card-title">MediCall Token – Government Hospital Live Queue &amp; Enterprise Admin CRM System</h3>
           <p class="project-card-desc">
-            • Developed a hybrid web and mobile application for hospital token and queue management.<br>
-            • Implemented patient registration, live token tracking, QR code scanning, and enterprise hospital CRM.<br>
-            • Built secure authentication and real-time queue synchronization using Firebase.<br>
-            • Designed responsive web interfaces with dark mode and accessibility support.<br>
-            • Integrated Google Maps, local storage, analytics, and cloud-based hospital management.
+            • Developed a hybrid mobile and web application for hospital token management.<br>
+            • Implemented patient registration, live token tracking and QR scanning.<br>
+            • Built Enterprise Hospital CRM.<br>
+            • Integrated Firebase Authentication and Firestore.<br>
+            • Implemented Google Maps.<br>
+            • Designed responsive UI.<br>
+            • Added Analytics and Cloud Storage.
           </p>
           <div class="project-card-tags">
             <span class="tag">Flutter</span>
@@ -2533,8 +2574,7 @@
             <span class="tag">Mobile Scanner</span>
             <span class="tag">Node.js</span>
           </div>
-          <a href="#" target="_blank" rel="noopener" class="project-card-link" id="linkProjMediCallCode">View Repository
-            <i class="fa fa-arrow-right"></i></a>
+          <span class="demo-soon-badge" style="margin-top: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 700; color: var(--accent-pink);"><i class="fa fa-hourglass-half"></i> Coming Soon</span>
         </div>
       </div>
     </div>
@@ -2552,7 +2592,10 @@
       <div class="projects-grid">
         <!-- Certificate 1 -->
         <div class="project-card rv rv-up d1">
-          <div class="project-card-header">
+          <div class="cert-icon-box" style="font-size: 1.8rem; color: var(--accent); margin-bottom: 14px;">
+            <i class="fab fa-java"></i>
+          </div>
+          <div class="project-card-header" style="margin-bottom: 12px;">
             <span class="project-card-cat">Internship Completion Certificate</span>
           </div>
           <h3 class="project-card-title">Java Web App Development Internship</h3>
@@ -2563,12 +2606,17 @@
             <span class="tag">Internship</span>
           </div>
           <a href="#" target="_blank" rel="noopener" class="btn btn-primary btn-sm" id="btnCertJava"
-            style="display: inline-block; text-align: center; margin-top: auto;">View Certificate</a>
+            style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: auto;">
+            <i class="fa fa-certificate"></i> View Certificate <span style="opacity: 0.75; font-size: 0.75rem;">(Coming Soon)</span>
+          </a>
         </div>
 
         <!-- Certificate 2 -->
         <div class="project-card rv rv-up d2">
-          <div class="project-card-header">
+          <div class="cert-icon-box" style="font-size: 1.8rem; color: var(--accent-pink); margin-bottom: 14px;">
+            <i class="fab fa-microsoft"></i>
+          </div>
+          <div class="project-card-header" style="margin-bottom: 12px;">
             <span class="project-card-cat">Microsoft Certification</span>
           </div>
           <h3 class="project-card-title">Microsoft Azure AI Fundamentals</h3>
@@ -2579,29 +2627,38 @@
             <span class="tag">Microsoft</span>
           </div>
           <a href="#" target="_blank" rel="noopener" class="btn btn-primary btn-sm" id="btnCertAzure"
-            style="display: inline-block; text-align: center; margin-top: auto;">View Certificate</a>
+            style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: auto;">
+            <i class="fa fa-certificate"></i> View Certificate <span style="opacity: 0.75; font-size: 0.75rem;">(Coming Soon)</span>
+          </a>
         </div>
 
         <!-- Certificate 3 -->
         <div class="project-card rv rv-up d3">
-          <div class="project-card-header">
+          <div class="cert-icon-box" style="font-size: 1.8rem; color: #ff9900; margin-bottom: 14px;">
+            <i class="fab fa-aws"></i>
+          </div>
+          <div class="project-card-header" style="margin-bottom: 12px;">
             <span class="project-card-cat">Cloud Certification</span>
           </div>
           <h3 class="project-card-title">AWS Cloud Fundamentals (Beginner)</h3>
-          <p class="project-card-desc">Foundational certification covering essential AWS Cloud services and concepts.
-          </p>
+          <p class="project-card-desc">Foundational certification covering essential AWS Cloud services and concepts.</p>
           <div class="project-card-tags">
             <span class="tag">AWS</span>
             <span class="tag">Cloud Computing</span>
             <span class="tag">Certification</span>
           </div>
           <a href="#" target="_blank" rel="noopener" class="btn btn-primary btn-sm" id="btnCertAWS"
-            style="display: inline-block; text-align: center; margin-top: auto;">View Certificate</a>
+            style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: auto;">
+            <i class="fa fa-certificate"></i> View Certificate <span style="opacity: 0.75; font-size: 0.75rem;">(Coming Soon)</span>
+          </a>
         </div>
 
         <!-- Certificate 4 -->
         <div class="project-card rv rv-up d4">
-          <div class="project-card-header">
+          <div class="cert-icon-box" style="font-size: 1.8rem; color: var(--accent); margin-bottom: 14px;">
+            <i class="fa fa-award"></i>
+          </div>
+          <div class="project-card-header" style="margin-bottom: 12px;">
             <span class="project-card-cat">Participation Certificate</span>
           </div>
           <h3 class="project-card-title">IEEE MAS TECHCLAVE 2026</h3>
@@ -2612,7 +2669,9 @@
             <span class="tag">Participation</span>
           </div>
           <a href="#" target="_blank" rel="noopener" class="btn btn-primary btn-sm" id="btnCertIEEE"
-            style="display: inline-block; text-align: center; margin-top: auto;">View Certificate</a>
+            style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: auto;">
+            <i class="fa fa-certificate"></i> View Certificate <span style="opacity: 0.75; font-size: 0.75rem;">(Coming Soon)</span>
+          </a>
         </div>
       </div>
     </div>
