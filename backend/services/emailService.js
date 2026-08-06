@@ -27,19 +27,7 @@ const sendContactNotification = async ({ name, email, subject, message, timestam
   const mailOptions = {
     from: `"Portfolio Contact System" <${config.email.user || 'noreply@portfolio.com'}>`,
     to: config.email.receiver || 'bhuvitamil3262@gmail.com',
-    subject: 'New Portfolio Contact Message',
-    text: `New Contact Received
-
-Name: ${name}
-Email: ${email}
-Subject: ${subject}
-
-Message:
-${message}
-
-Timestamp: ${timestamp}
-Sender IP: ${ipAddress}
-`,
+    text: `----------------------------------------\nNew Portfolio Contact\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage:\n${message}\n\nSubmitted At: ${timestamp}\n----------------------------------------`,
     html: `
       <div style="font-family: Arial, sans-serif; padding: 20px; color: #1e293b; max-width: 600px; border: 1px solid #e2e8f0; border-radius: 8px;">
         <h2 style="color: #2563eb; margin-top: 0;">🚀 New Portfolio Contact Message</h2>

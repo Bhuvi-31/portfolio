@@ -10,7 +10,7 @@
   <!-- SEO Title and Metadata -->
   <title>Bhuvaneshwari T - Frontend Developer & BE CSE Student Portfolio</title>
   <meta name="description"
-    content="Portfolio of Bhuvaneshwari S - 3rd Year B.E. Computer Science Engineering student specializing in Frontend Web Development, UI/UX Design, and Computer Vision (OpenCV/MediaPipe).">
+    content="Portfolio of Bhuvaneshwari S - Final Year B.E. Computer Science Engineering student specializing in Frontend Web Development, UI/UX Design, and Computer Vision (OpenCV/MediaPipe).">
   <meta name="author" content="Bhuvaneshwari S">
   <meta name="keywords"
     content="Bhuvaneshwari S, Frontend Developer, Web Developer, BE CSE Student, Portfolio, Computer Vision, OpenCV, MediaPipe, Gesture Control, HTML, CSS, JavaScript">
@@ -42,6 +42,10 @@
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Firebase Web SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
   <!-- Custom Stylesheet -->
   <style>
@@ -1169,6 +1173,21 @@
       animation-delay: 1.2s;
     }
 
+    .pulse-wave-line {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: pulseWaveFlow 3.5s linear infinite;
+    }
+
+    @keyframes pulseWaveFlow {
+      0% {
+        stroke-dashoffset: 400;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
     /* Small Projects Cards Grid */
     .projects-grid {
       display: grid;
@@ -1562,6 +1581,10 @@
 
     .d8 {
       transition-delay: 0.66s;
+    }
+
+    .d9 {
+      transition-delay: 0.74s;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -2076,7 +2099,7 @@
           I'm a <span id="typing-text" class="typing-target"></span>
         </h2>
         <p class="hero-desc rv rv-up d4">
-          A 3rd-year <strong>B.E. Computer Science & Engineering</strong> student passionate about crafting
+          A Final Year <strong>B.E. Computer Science & Engineering</strong> student passionate about crafting
           pixel-perfect, interactive user interfaces and exploring intelligent computer vision systems.
         </p>
 
@@ -2122,7 +2145,7 @@
         <div class="about-text-content rv rv-left">
           <h3>Pioneering Ideas Through Code</h3>
           <p class="about-lead">
-            I am currently in my 3rd year pursuing a Bachelor of Engineering in Computer Science & Engineering. My
+            I am currently in my final year pursuing a Bachelor of Engineering in Computer Science & Engineering. My
             passion lies in building modern frontends and combining them with AI-powered interactions.
           </p>
           <p>
@@ -2270,7 +2293,7 @@
         </div>
 
         <!-- Skill 9 -->
-        <div class="skill-card rv rv-up d1">
+        <div class="skill-card rv rv-up d9">
           <div class="skill-header">
             <div class="skill-icon-box"><i class="fab fa-java"></i></div>
             <h3 class="skill-name">Java</h3>
@@ -2549,7 +2572,7 @@
             <span class="project-card-year">2026</span>
             <span class="project-card-cat">Web &amp; Mobile App</span>
           </div>
-          <h3 class="project-card-title">MediCall Token – Government Hospital Live Queue &amp; Enterprise Admin CRM System</h3>
+          <h3 class="project-card-title">Medical Token</h3>
           <p class="project-card-desc">
             • Developed a hybrid mobile and web application for hospital token management.<br>
             • Implemented patient registration, live token tracking and QR scanning.<br>
@@ -2797,6 +2820,27 @@
     document.addEventListener('DOMContentLoaded', () => {
 
       /* ==========================================
+         0. FIREBASE WEB SDK INITIALIZATION
+         ========================================== */
+      const firebaseConfig = {
+        apiKey: "AIzaSyCM4dZ4_1DMIQGLGxnJgV_LhoHfY2rUhgo",
+        authDomain: "bhuvaneshwari-portfolio.firebaseapp.com",
+        projectId: "bhuvaneshwari-portfolio",
+        storageBucket: "bhuvaneshwari-portfolio.firebasestorage.app",
+        messagingSenderId: "465320362139",
+        appId: "1:465320362139:web:20af6570bda407c75e463e",
+        measurementId: "G-HXF5HKTGHX"
+      };
+
+      if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+        try {
+          firebase.initializeApp(firebaseConfig);
+        } catch (e) {
+          console.warn('Firebase init notice:', e);
+        }
+      }
+
+      /* ==========================================
          1. GLASS NAVBAR SCROLL EFFECT
          ========================================== */
       const navbar = document.getElementById('navbar');
@@ -2852,7 +2896,7 @@
       const typingElement = document.getElementById('typing-text');
       const words = [
         "Frontend Developer.",
-        "3rd Year B.E. CSE Student.",
+        "Final Year B.E. CSE Student.",
         "Computer Vision Enthusiast.",
         "UI/UX Design Explorer."
       ];
@@ -3120,14 +3164,35 @@
             name: nameInput.value.trim(),
             email: emailInput.value.trim(),
             subject: subjectInput.value.trim(),
-            message: messageInput.value.trim()
+            message: messageInput.value.trim(),
+            timestamp: new Date().toLocaleString()
           };
 
+          let firestoreSaved = false;
+
+          // 1. Save contact details directly to Firebase Firestore
+          try {
+            if (typeof firebase !== 'undefined' && firebase.firestore) {
+              const db = firebase.firestore();
+              await db.collection('contacts').add({
+                name: payload.name,
+                email: payload.email,
+                subject: payload.subject,
+                message: payload.message,
+                timestamp: payload.timestamp,
+                createdAt: firebase.firestore.FieldValue ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+              });
+              firestoreSaved = true;
+              console.log('Successfully saved contact message to Firebase Firestore.');
+            }
+          } catch (fbErr) {
+            console.warn('Firebase Firestore save notice:', fbErr.message);
+          }
+
+          // 2. Trigger Email Notification via Backend API / Netlify Function
           const getApiEndpoint = () => {
             let baseUrl = '';
-            if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) {
-              baseUrl = import.meta.env.VITE_API_URL;
-            } else if (window.VITE_API_URL) {
+            if (window.VITE_API_URL) {
               baseUrl = window.VITE_API_URL;
             } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
               baseUrl = window.location.port === '5000' ? '' : 'http://localhost:5000';
@@ -3150,21 +3215,23 @@
 
             const data = await response.json();
 
-            if (response.ok && data.success) {
+            if ((response.ok && data.success) || firestoreSaved) {
               formStatus.style.color = '#0df09c';
-              formStatus.textContent = data.message || 'Message Sent Successfully';
+              formStatus.textContent = 'Message Sent Successfully';
               contactForm.reset();
             } else {
               formStatus.style.color = '#ff6060';
               formStatus.textContent = data.error || data.message || 'Submission failed';
             }
           } catch (err) {
-            console.error('Contact submit error:', err);
-            formStatus.style.color = '#ff6060';
-            if (err.name === 'TypeError' && err.message.includes('fetch')) {
-              formStatus.textContent = `Backend Server Unreachable (${API_ENDPOINT}). Please ensure Node.js backend is running on port 5000.`;
+            console.error('Contact submit API notice:', err);
+            if (firestoreSaved) {
+              formStatus.style.color = '#0df09c';
+              formStatus.textContent = 'Message Sent Successfully';
+              contactForm.reset();
             } else {
-              formStatus.textContent = err.message || 'Network error occurred while connecting to API.';
+              formStatus.style.color = '#ff6060';
+              formStatus.textContent = 'Failed to submit message. Please check your connection and try again.';
             }
           } finally {
             submitBtn.innerHTML = originalBtnText;

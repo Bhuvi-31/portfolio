@@ -1,6 +1,6 @@
 # Bhuvaneshwari S - Production Full Stack Portfolio Website
 
-A production-ready full-stack portfolio web application built for Bhuvaneshwari S (3rd Year B.E. CSE Student & Frontend Developer). Features an high-performance, dark-themed responsive frontend connected to a Node.js / Express backend with Firebase Admin SDK, Firestore database persistence, rate-limited APIs, and Gmail SMTP Nodemailer notifications.
+A production-ready full-stack portfolio web application built for Bhuvaneshwari S (Final Year B.E. CSE Student & Frontend Developer). Features an high-performance, dark-themed responsive frontend connected to a Node.js / Express backend with Firebase Admin SDK, Firestore database persistence, rate-limited APIs, and Gmail SMTP Nodemailer notifications.
 
 ---
 

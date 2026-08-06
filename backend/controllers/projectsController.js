@@ -6,7 +6,7 @@ const { db } = require('../firebase/firebaseAdmin');
 const defaultProjects = [
   {
     id: 'proj-1',
-    title: 'MediCall Token – Government Hospital Live Queue & Enterprise Admin CRM System',
+    title: 'Medical Token – Government Hospital Live Queue & Enterprise Admin CRM System',
     category: 'Web & Mobile App',
     year: '2026',
     description: [

@@ -1,10 +1,10 @@
-# Netlify Build and Redirect Configuration
 [build]
   publish = "."
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/api/*"
-  to = "https://portfolio-backend-bhuvi.onrender.com/api/:splat"
+  to = "/.netlify/functions/:splat"
   status = 200
   force = true
 
